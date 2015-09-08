@@ -1,6 +1,9 @@
--- Testing out ability to use OmniFocus native AppleScript support
-set teamMembers to {"Uty", "Robert", "Chuck", "Kim", "Erik", "Jason", "Hassan", "Lauretta", "Michael", "Brian", "Rashaan", "Chad"}
---set teamMembers to {"Uty", "Robert"}
+(* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *)
+
+--set teamMembers to {"Uty", "Robert", "Chuck", "Kim", "Erik", "Jason", "Hassan", "Lauretta", "Michael", "Brian", "Rashaan", "Chad"}
+set teamMembers to {"Uty", "Robert"}
 
 tell application "OmniFocus"
 	tell front document
@@ -15,10 +18,10 @@ tell application "OmniFocus"
 				keystroke tab 
 				keystroke tab 
 				keystroke mbr
-				delay 0.5
+				delay 0.25
 				keystroke return 
 				keystroke return
-				delay 0.5
+				delay 0.25
 				keystroke return
 			end tell
 		end repeat
