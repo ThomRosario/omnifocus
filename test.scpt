@@ -25,9 +25,11 @@ tell application "OmniFocus"
 			keystroke "c" using {command down}
 			delay 0.25
 			key code 53
+			delay 0.25
 			set taskName to the clipboard			
 			--create a new task and indent it
 			keystroke return
+			delay 0.25
 			key code 124 using {control down, command down}
 		end tell
 		repeat with mbr in teamMembers
