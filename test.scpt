@@ -1,5 +1,14 @@
 (* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+This script is a really dirty way of creating a task assigned to every team
+member based on the currently selected OmniFocus task.
 
+Thom Rosario
+thom.rosario@jhuapl.edu
+9.8.2015
+v 1.0 -- Initial functionality.  I will eventually edit this to use OmniFocus-
+         native AppleScript objects.  Using System Events is fraught with 
+         danger and really unreliable.  That's why I have to have so many 
+         delays and ridiculous key codes.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *)
 
 set teamMembers to {"Uty", "Robert", "Chuck", "Kim", "Erik", "Jason", "Hassan", "Lauretta", "Michael", "Brian", "Rashaan", "Chad"}
@@ -46,5 +55,5 @@ tell application "OmniFocus"
 			key code 51
 		end tell
 		set will autosave to true 
-	end tell --done w/ the front OmniFocus window
-end tell --done w/ OmniFocus
+	end tell
+end tell
