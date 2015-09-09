@@ -21,8 +21,9 @@ tell application "OmniFocus"
 		tell application "System Events"
 			--Copy the name of the current task to the clipboard
 			key code 53
-			delay 0.5
+			delay 0.75
 			keystroke "c" using {command down}
+			delay 0.25
 			key code 53
 			set taskName to the clipboard			
 			--create a new task and indent it
@@ -30,7 +31,7 @@ tell application "OmniFocus"
 			key code 124 using {control down, command down}
 		end tell
 		repeat with mbr in teamMembers
-			--Loop through the entire team and add their name
+			--Loop through the entire team and add their name; delays are workarounds
 			tell application "System Events"
 				delay 0.25
 				keystroke taskName
