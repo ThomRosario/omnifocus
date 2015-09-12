@@ -1,14 +1,10 @@
 (* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-This script is a really dirty way of creating a task assigned to every team
-member based on the currently selected OmniFocus task.
+This script uses TextExpander to paste the OmniFocus tasks I've copied to the
+clipboard into a new email and send the email to the chosen team member
 
 Thom Rosario
-thom.rosario@jhuapl.edu
-9.8.2015
-v 1.0 -- Initial functionality.  I will eventually edit this to use OmniFocus-
-         native AppleScript objects.  Using System Events is fraught with 
-         danger and really unreliable.  That's why I have to have so many 
-         delays and ridiculous key codes.
+9.11.2015
+v 1.0 -- Initial functionality. 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *)
 
 tell application "OmniFocus"
