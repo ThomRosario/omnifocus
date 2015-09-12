@@ -3,7 +3,6 @@ This script is a really dirty way of creating a task assigned to every team
 member based on the currently selected OmniFocus task.
 
 Thom Rosario
-thom.rosario@jhuapl.edu
 9.8.2015
 v 1.0 -- Initial functionality.  I will eventually edit this to use OmniFocus-
          native AppleScript objects.  Using System Events is fraught with 
