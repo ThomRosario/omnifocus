@@ -1,18 +1,32 @@
 (* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-This script uses TextExpander to paste the OmniFocus tasks I've copied to the
-clipboard into a new email and send the email to the chosen team member
+This script uses loops through all the members of the team and creates an 
+email to each of them with a list of all of the outstanding inputs needed 
+from them.
 
 Thom Rosario
-9.12.2015
+9.13.2015
 v 1.0 -- Initial functionality. 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *)
 
---set teamMembers to {"Uty", "Robert", "Chuck", "Kim", "Erik", "Jason", "Hassan", "Lauretta", "Michael", "Brian", "Rashaan", "Chad"}
-set teamMembers to {{"Uty", "uthman@jhuapl.edu"}, 
+set teamMembers to {{"Uty", "uthman.adediran@jhuapl.edu"}, ¬
+					{"Chuck", "chuck.berry@jhuapl.edu"}, ¬
+					{"Kim", "kim.drury@jhuapl.edu"}, ¬
+					{"Erik", "Erik.Hasselbarth@jhuapl.edu"}, ¬
+					{"Jason", "jason.prince@jhuapl.edu"}, ¬
+					{"Hassan", "Hassan.Shonekan@jhuapl.edu"}, ¬
+					{"Lauretta", "Lauretta.Skanes@jhuapl.edu"}, ¬
+					{"Michael", "Michael.Tomassi@jhuapl.edu"}, ¬
+					{"Brian", "Brian.Casto@jhuapl.edu"}, ¬
+					{"Rashaan", "Rashaan.Green@jhuapl.edu"}, ¬
+					{"Chad", "Chadrick.Whaley@jhuapl.edu"}, ¬
 					{"Robert", "robert@jhuapl.edu"}}
+
 repeat with mbrInfo in teamMembers
 	set firstName to item 1 of mbrInfo
+	set mailSubj to "Inputs from " & firstName
 	set email to item 2 of mbrInfo
+	set bodyContent to ""
+	--display dialog firstName & " " & email
 	tell application "OmniFocus"
 		tell front document
 			tell application "System Events"
@@ -20,22 +34,28 @@ repeat with mbrInfo in teamMembers
 				keystroke "o" using {command down}
 				delay 0.25
 				keystroke firstName
+				delay 0.5
+				keystroke return	
 				delay 0.25
-				key code 35 --enter key
-				delay 0.25
+				--Select & copy all their tasks
 				keystroke "a" using {command down}
-				delay 0.25
+				delay 0.5
 				keystroke "c" using {command down}
+				delay 0.25
+				set bodyContent to the clipboard
+				--display dialog bodyContent
 			end tell
 		end tell
 	end tell -- done w/ OmniFocus
 	tell application "Mail"
-		activate
-		delay 1
-		tell application "System Events"
-			keystroke "n" using {command down}
-			keystroke ";tickler"
+		set newMsg to make new outgoing message with properties { ¬
+			subject: mailSubj, ¬
+			visible: true, ¬
+			content: bodyContent ¬
+		}
+		tell newMsg
+			make new to recipient with properties {name:firstName, address:email}
+			-- send
 		end tell
 	end tell
 end repeat
-

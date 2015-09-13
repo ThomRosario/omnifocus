@@ -5,6 +5,19 @@ clipboard into a new email and send the email to the chosen team member
 Thom Rosario
 9.11.2015
 v 1.0 -- Initial functionality. 
+
+set myList to {"Problem", "There was a problem", "Bummer"}
+set theChoice to item 2 of myList
+say theChoice
+
+set teamMembers to {"Uty", "Robert", "Chuck", "Kim", "Erik", "Jason", "Hassan", "Lauretta", "Michael", "Brian", "Rashaan", "Chad"}
+--set teamMembers to {{"Uty", "uthman@jhuapl.edu"}, 
+					  {"Robert"}
+repeat with mbr in teamMembers
+	open of
+	cmd+o
+	mbr
+end repeat
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *)
 
 tell application "OmniFocus"
