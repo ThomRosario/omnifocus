@@ -17,20 +17,15 @@ tell application "OmniFocus"
 	tell front document
 		--increase responsiveness by disabling autosave
 		set will autosave to false
-		--trying new method of getting name
-		tell document window 1
-			set selectedTask to selected tress of content
-			set taskName to name of item 1 of selectedTask
-		end tell
 		tell application "System Events"
 			--Copy the name of the current task to the clipboard
---			key code 53
---			delay 0.75
---			keystroke "c" using {command down}
---			delay 0.25
---			key code 53
---			delay 0.25
---			set taskName to the clipboard
+			key code 53
+			delay 0.75
+			keystroke "c" using {command down}
+			delay 0.25
+			key code 53
+			delay 0.25
+			set taskName to the clipboard			
 			--create a new task and indent it
 			keystroke return
 			delay 0.25
@@ -41,11 +36,13 @@ tell application "OmniFocus"
 			tell application "System Events"
 				delay 0.25
 				keystroke taskName
-				delay 2
+				delay 1
+				keystroke ":  "
+				keystroke mbr
 				keystroke tab
 				delay 0.2 
 				keystroke tab
-				delay 0.25
+				delay 0.2
 				keystroke mbr
 				delay 0.3
 				keystroke return 
