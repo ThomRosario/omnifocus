@@ -20,8 +20,8 @@ set teamMembers to {{"Uty", "uthman.adediran@jhuapl.edu"}, ¬
 					{"Rashaan", "Rashaan.Green@jhuapl.edu"}, ¬
 					{"Chad", "Chadrick.Whaley@jhuapl.edu"}, ¬
 					{"Robert", "robert@jhuapl.edu"}}
-set teamMembers to {{"Uty", "uthman.adediran@jhuapl.edu"}, ¬
-					{"Robert", "robert@jhuapl.edu"}}
+--set teamMembers to {{"Uty", "uthman.adediran@jhuapl.edu"}, ¬
+--					{"Robert", "robert@jhuapl.edu"}}
 set emailSig to return & return & ¬
 				 "--" & return & ¬
 				 "Thom Rosario" & return & ¬
@@ -32,7 +32,6 @@ set emailSig to return & return & ¬
 				 "Office:  240.228.7376" & return & ¬
 				 "Mobile:  410.709.8466" & return & ¬
 				 "Thom.Rosario@jhuapl.edu"
-display dialog emailSig
 repeat with mbrInfo in teamMembers
 	set firstName to item 1 of mbrInfo
 	set mailSubj to "Inputs from " & firstName
@@ -40,7 +39,6 @@ repeat with mbrInfo in teamMembers
 	set bodyContent to ""
 	set salutation to firstname & " --" & return & ¬
 		"Below is a list of items I still need your input on." & return & return 
-	--display dialog firstName & " " & email
 	tell application "OmniFocus"
 		tell front document
 			tell application "System Events"
@@ -51,17 +49,14 @@ repeat with mbrInfo in teamMembers
 				delay 0.5
 				keystroke return	
 				delay 0.25
-				--Select & copy all their tasks
-				--keystroke "a" using {command down}
-				-- arrow down and select 
-				key code 125
+				--Select & copy all their tasks				
+				key code 125 -- arrow down
 				delay 0.1
 				key code 125 using {command down, option down, shift down}
 				delay 0.5
 				keystroke "c" using {command down}
 				delay 0.25
 				set bodyContent to the clipboard
-				--display dialog bodyContent
 			end tell
 		end tell
 	end tell -- done w/ OmniFocus
