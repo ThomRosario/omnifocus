@@ -1,7 +1,6 @@
-set teamMembers to {"Test1", "Test2"}
-
-property childrenTitles : {"ALX", "CAL", "CHC", "MMM", "SIB"}
-property includeParentTitle : false
+property teamMembers : {"Uty", "Robert", "Chuck", "Kim", "Erik", "Jason", "Hassan", "Lauretta", "Michael", "Brian", "Rashaan", "Chad"}
+-- property teamMembers : {"Uty", "Robert"}
+property includeParentTitle : true
 property scriptSuiteName : "Thom’s Scripts"
 
 tell application "OmniFocus"
@@ -27,20 +26,22 @@ tell application "OmniFocus"
 		
 		set will autosave to false
 		try
-			repeat with childTitle in childrenTitles
+			repeat with mbr in teamMembers
 				if includeParentTitle then
-					set childTitle to theParentName & ": " & childTitle
+--					set mbr to theParentName & ": " & mbr
+					--set mbr to theParentName
 				end if
-				set newTask to make new task with properties {name:childTitle} at after last task of rootTask
+				set theContext to first flattened context where its name = mbr
+				set newTask to make new task ¬
+					with properties {name:theParentName, context:theContext} ¬
+						at after last task of rootTask
 				-- HEREDAMMIT
 			end repeat
 		on error errStr number errorNumber
 			set will autosave to true
 			error errStr number errorNumber
-		end try
-		
-		my notify("Children Added", "You may need to go to Projects to see the new children.")
-		
+		end try		
+		my notify("Children Added", "You may need to go to Projects to see the new children.")		
 	end tell
 end tell
 
@@ -52,30 +53,3 @@ end tell
 on notify(theTitle, theDescription)
 	display notification theDescription with title scriptSuiteName subtitle theTitle
 end notify
-
---tell application "OmniFocus"
---	tell front document
---		tell document window 1
---			set selectedTask to selected trees of content
---			set taskName to name of item 1 of selectedTask
---			display dialog taskName
---		end tell
---	end tell
---end tell
---
---tell application "System Events"
---	--create child task
---	keystroke return
---	delay 0.25
---	key code 124 using {control down, command down}
---end tell
---
---tell application "OmniFocus"
---	tell front document
---		tell document window 1
---			set selectedTask to selected trees of content
---			set name of item 1 of selectedTask to taskName
---		end tell
---	end tell
---end tell
---
