@@ -11,7 +11,9 @@ v 1.0 -- Initial functionality.  I will eventually edit this to use OmniFocus-
          delays and ridiculous key codes.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *)
 
-property teamMembers : {"Uty", "Robert", "Chuck", "Kim", "Erik", "Jason", "Hassan", "Lauretta", "Michael", "Brian", "Rashaan", "Chad"}
+property teamMembers : {"Uty", "Robert", "Chuck", "Kim", "Erik",¬
+						"Jason", "Hassan", "Lauretta", "Michael", ¬
+						"Brian", "Rashaan", "Chad"}
 -- property teamMembers : {"Uty", "Robert"}
 property includeParentTitle : true
 property scriptSuiteName : "Thom’s Scripts"
@@ -21,11 +23,11 @@ tell application "OmniFocus"
 		tell document window 1 -- (first document window whose index is 1)
 			set theSelectedItems to selected trees of content
 			if ((count of theSelectedItems) ≠ 1) then
-				display alert "You must first select a task or project to add children to." message "Select a single task or project in the main outline." as warning
+				display alert "You must first select a task or project to add children to." ¬
+					message "Select a single task or project in the main outline." as warning
 				return
 			end if
-		end tell
-		
+		end tell		
 		set selectedItem to value of item 1 of theSelectedItems
 		set theParentName to name of item 1 of theSelectedItems
 		set rootTask to selectedItem
@@ -33,7 +35,8 @@ tell application "OmniFocus"
 			set rootTask to root task of selectedItem
 		end if
 		if (class of rootTask is not task) then
-			display alert "You must select a task or project to add children to." message "Select a task or project in the main outline." as warning
+			display alert "You must select a task or project to add children to." ¬
+				message "Select a task or project in the main outline." as warning
 			return
 		end if
 		
