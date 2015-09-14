@@ -4,61 +4,65 @@ member based on the currently selected OmniFocus task.
 
 Thom Rosario
 9.8.2015
+v 2.0 -- Found an example that uses objects & not UI scripting
 v 1.0 -- Initial functionality.  I will eventually edit this to use OmniFocus-
          native AppleScript objects.  Using System Events is fraught with 
          danger and really unreliable.  That's why I have to have so many 
          delays and ridiculous key codes.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *)
 
-set teamMembers to {"Uty", "Robert", "Chuck", "Kim", "Erik", "Jason", "Hassan", "Lauretta", "Michael", "Brian", "Rashaan", "Chad"}
---set teamMembers to {"Uty", "Robert"}
+property teamMembers : {"Uty", "Robert", "Chuck", "Kim", "Erik", "Jason", "Hassan", "Lauretta", "Michael", "Brian", "Rashaan", "Chad"}
+-- property teamMembers : {"Uty", "Robert"}
+property includeParentTitle : true
+property scriptSuiteName : "Thom’s Scripts"
 
 tell application "OmniFocus"
 	tell front document
-		--increase responsiveness by disabling autosave
+		tell document window 1 -- (first document window whose index is 1)
+			set theSelectedItems to selected trees of content
+			if ((count of theSelectedItems) ≠ 1) then
+				display alert "You must first select a task or project to add children to." message "Select a single task or project in the main outline." as warning
+				return
+			end if
+		end tell
+		
+		set selectedItem to value of item 1 of theSelectedItems
+		set theParentName to name of item 1 of theSelectedItems
+		set rootTask to selectedItem
+		if (class of rootTask is project) then
+			set rootTask to root task of selectedItem
+		end if
+		if (class of rootTask is not task) then
+			display alert "You must select a task or project to add children to." message "Select a task or project in the main outline." as warning
+			return
+		end if
+		
 		set will autosave to false
-		--trying new method of getting name
-		tell document window 1
-			set selectedTask to selected tress of content
-			set taskName to name of item 1 of selectedTask
-		end tell
-		tell application "System Events"
-			--Copy the name of the current task to the clipboard
---			key code 53
---			delay 0.75
---			keystroke "c" using {command down}
---			delay 0.25
---			key code 53
---			delay 0.25
---			set taskName to the clipboard
-			--create a new task and indent it
-			keystroke return
-			delay 0.25
-			key code 124 using {control down, command down}
-		end tell
-		repeat with mbr in teamMembers
-			--Loop through the entire team and add their name; delays are workarounds
-			tell application "System Events"
-				delay 0.25
-				keystroke taskName
-				delay 2
-				keystroke tab
-				delay 0.2 
-				keystroke tab
-				delay 0.25
-				keystroke mbr
-				delay 0.3
-				keystroke return 
-				keystroke return
-				delay 0.3
-				keystroke return
-			end tell
-		end repeat
-		tell application "System Events"
-			--need to delete the last line I don't want
-			key code 53
-			key code 51
-		end tell
-		set will autosave to true 
+		try
+			repeat with mbr in teamMembers
+				if includeParentTitle then
+--					set mbr to theParentName & ": " & mbr
+					--set mbr to theParentName
+				end if
+				set theContext to first flattened context where its name = mbr
+				set newTask to make new task ¬
+					with properties {name:theParentName, context:theContext} ¬
+						at after last task of rootTask
+				-- HEREDAMMIT
+			end repeat
+		on error errStr number errorNumber
+			set will autosave to true
+			error errStr number errorNumber
+		end try		
+		my notify("Children Added", "You may need to go to Projects to see the new children.")		
 	end tell
 end tell
+
+(*
+	Uses Notification Center to display a notification message.
+	theTitle – a string giving the notification title
+	theDescription – a string describing the notification event
+*)
+on notify(theTitle, theDescription)
+	display notification theDescription with title scriptSuiteName subtitle theTitle
+end notify
