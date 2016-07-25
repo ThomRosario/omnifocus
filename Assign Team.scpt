@@ -1,4 +1,4 @@
-(* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+(* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  
 This script is a really dirty way of creating a task assigned to every team
 member based on the currently selected OmniFocus task.
 
